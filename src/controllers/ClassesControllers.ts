@@ -10,8 +10,8 @@ interface ScheduleItem {
 
 export default class ClassController {
   async index(request: Request, response: Response) {
-    const filters = request.body;
-
+    const filters = request.query;
+    console.log(filters);
     const week_day = filters.week_day;
     const subject = filters.subject;
     const time = filters.time;
@@ -22,7 +22,7 @@ export default class ClassController {
       });
     }
 
-    const timeInMinutes = convertHourToMinutes(time);
+    const timeInMinutes = convertHourToMinutes(time as string);
 
     const classes = await db("classes")
       .whereExists(function () {
